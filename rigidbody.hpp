@@ -3,6 +3,8 @@
 
 #define STATE_NUM 13
 
+void quat2dcm(double* dcm, double* quat);
+
 class rigidbody
 {
     private:
@@ -34,6 +36,9 @@ class rigidbody
 
         //State update (rk4)
         void update(double* force, double* moment, double h);
+
+        //Stare print
+        void print(double t);
 
 };
 

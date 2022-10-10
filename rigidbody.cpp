@@ -1,4 +1,5 @@
 #include "rigidbody.hpp"
+#include <stdio.h>
 #include <math.h>
 
 rigidbody::rigidbody(   double u, double v, double w,
@@ -219,5 +220,50 @@ void rigidbody::update(double* force, double* moment, double h)
     Q1 = Q1/mag;
     Q2 = Q2/mag;
     Q3 = Q3/mag;
+
+    //DCM
+    double dcm[9];
+    double quat[4]={Q0, Q1, Q2, Q3};
+    quat2dcm(dcm, quat);
+
+    Phi = atan2(dcm[5], dcm[8]);
+    Theta = atan2(-dcm[2], sqrt(dcm[5]*dcm[5] + dcm[8]*dcm[8]));
+    Psi = atan2(dcm[1], dcm[0]);
+
 }
 
+
+void rigidbody::print(double t)
+{
+    printf( "%9.6f "
+            "%9.6f %9.6f %9.6f "
+            "%9.6f %9.6f %9.6f "
+            "%9.6f %9.6f %9.6f %9.6f "
+            "%9.6f %9.6f %9.6f "
+            "%9.6f %9.6f %9.6f\n",
+        t, 
+        Ub, Vb, Wb,
+        Pb, Qb, Rb,
+        Q0, Q1, Q2, Q3,
+        Phi, Theta, Psi,
+        Xe, Ye, Ze);
+}
+
+void quat2dcm(double* dcm, double* quat)
+{
+    double q0 = quat[0];
+    double q1 = quat[1];
+    double q2 = quat[2];
+    double q3 = quat[3];
+
+    //DCM
+    dcm[0] = q0*q0 + q1*q1 - q2*q2 - q3*q3;
+    dcm[1] = 2*(q1*q2 + q0*q3);
+    dcm[2] = 2*(q1*q3 - q0*q2);
+    dcm[3] = 2*(q1*q2 - q0*q3);
+    dcm[4] = q0*q0 - q1*q1 + q2*q2 - q3*q3;
+    dcm[5] = 2*(q2*q3 + q0*q1);
+    dcm[6] = 2*(q1*q3 + q0*q2);
+    dcm[7] = 2*(q2*q3 - q0*q1);
+    dcm[8] = q0*q0 - q1*q1 - q2*q2 + q3*q3;
+}

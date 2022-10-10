@@ -29,11 +29,6 @@ void sim(void)
         t=t+h;
     }
     body.print(t);
-
-
-
-
-
 }
 
 int main(void)

@@ -21,7 +21,6 @@ void sim(void)
     moment[1]=0.0;
     moment[2]=0.001;
 
-    
     while (t< T_end)
     {
         body.print(t);

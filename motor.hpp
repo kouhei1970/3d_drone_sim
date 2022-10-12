@@ -6,16 +6,21 @@ class motor
 {
     private:
         double J_mot;
+        double J_load;
         double L_mot;
         double R_mot;
         double D_mot;
         double K_mot;
         double Fric_mot;
-        double Omega_mot;
-        void dxdt(double* output, double* state, double dist, double u);
+        
+        void dxdt(double* output, double state, double dist, double u);
     public:
         motor();
-        void update(void);
+        double Omega_mot;
+        void update(double u, double dist, double h);
+        void set_load_inartia(double j_load);
+        double torque(double e);
+        void print(double t);
 
 };
 

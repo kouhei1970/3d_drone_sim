@@ -7,16 +7,16 @@ rigidbody::rigidbody(   double u, double v, double w,
                         double x, double y, double z,
                         double phi, double theta, double psi)
 {
-    Mass = 1.0;
-    Ixx = 1.0;
+    Mass = 0.71;
+    Ixx = 6.1e-3;
     Ixy = 0.0;
     Ixz = 0.0;
     Iyx = 0.0;
-    Iyy = 1.0;
+    Iyy = 6.53e-3;
     Iyz = 0.0;
     Izx = 0.0;
     Izy = 0.0;
-    Izz = 1.0;
+    Izz = 1.16e-2;
 
     //Velocity
     Ub = u;

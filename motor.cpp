@@ -22,13 +22,13 @@ void motor::update(double u, double dist, double h)
     //State
     state = Omega_mot;
 
-    dxdy(&k1, state, u, dist);
+    dxdt(&k1, state, u, dist);
     state2 = state + 0.5*h*k1;
-    dxdy(&k2, state2, u, dist);
+    dxdt(&k2, state2, u, dist);
     state2 = state + 0.5*h*k2;
-    dxdy(&k3, state2, u, dist);
+    dxdt(&k3, state2, u, dist);
     state2 = state + h*k3;
-    dxdy(&k4, state2, u, dist);
+    dxdt(&k4, state2, u, dist);
 
     state= state+ h*(k1 + 2*k2 + 2*k3 + k4)/6;
 

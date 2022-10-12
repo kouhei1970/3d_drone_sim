@@ -1,5 +1,6 @@
 #ifndef MOTOR_HPP
 #define MOTOR_HPP
+#define MOTOR_STATE_NUM 1
 
 class motor
 {
@@ -10,6 +11,7 @@ class motor
         double D_mot;
         double K_mot;
         double Fric_mot;
+        double Omega_mot;
         void dxdt(double* output, double* state, double dist, double u);
     public:
         motor();

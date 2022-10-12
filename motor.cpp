@@ -9,7 +9,6 @@ motor::motor()
     R_mot = 0.12;
     J_load = 0.0;
     Omega_mot = 0.0;
-    //printf("hoge\n");
 }
 
 //Motor equation

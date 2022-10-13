@@ -2,6 +2,87 @@
 #include <stdio.h>
 #include <math.h>
 
+rigidbody::rigidbody()
+{
+    Mass = 0.71;
+    Ixx = 6.1e-3;
+    Ixy = 0.0;
+    Ixz = 0.0;
+    Iyx = 0.0;
+    Iyy = 6.53e-3;
+    Iyz = 0.0;
+    Izx = 0.0;
+    Izy = 0.0;
+    Izz = 1.16e-2;
+
+    //Velocity
+    Ub = 0.0;
+    Vb = 0.0;
+    Wb = 0.0;
+    Pb = 0.0;
+    Qb = 0.0;
+    Rb = 0.0;
+
+    //Angle
+    Phi = 0.0;
+    Theta = 0.0;
+    Psi = 0.0;
+
+    //DCM
+    double e11 =  cos(Theta)*cos(Psi);
+    double e12 =  cos(Theta)*sin(Psi);
+    double e13 = -sin(Theta);
+    double e21 =  sin(Phi)*sin(Theta)*cos(Psi) - cos(Phi)*sin(Psi);
+    double e22 =  sin(Phi)*sin(Theta)*sin(Psi) + cos(Phi)*cos(Psi);
+    double e23 =  sin(Phi)*cos(Theta);
+    double e31 =  cos(Phi)*sin(Theta)*cos(Psi) + sin(Phi)*sin(Psi);
+    double e32 =  cos(Phi)*sin(Theta)*sin(Psi) - sin(Phi)*cos(Psi);
+    double e33 =  cos(Psi)*cos(Theta);
+
+    //DCM to Quaternion
+    Q0 = 0.5*sqrt(1 + e11 + e22 + e33);
+    Q1 = 0.5*sqrt(1 + e11 - e22 - e33);
+    Q2 = 0.5*sqrt(1 - e11 + e22 - e33);
+    Q3 = 0.5*sqrt(1 - e11 - e22 + e33);
+
+    if (Q0 > 0.0)
+    {
+        Q1 = (e23 - e32)/4/Q0;
+        Q2 = (e13 - e31)/4/Q0;
+        Q3 = (e12 - e21)/4/Q0;
+    }
+    else if (Q1 > 0.0)
+    {
+        Q0 = (e23 + e32)/4/Q1;
+        Q2 = (e12 + e21)/4/Q1;
+        Q3 = (e13 + e31)/4/Q1;
+    }
+    else if (Q2>0.0)
+    {
+        Q0 = (e31 - e13)/4/Q2;
+        Q1 = (e12 + e21)/4/Q2;
+        Q3 = (e23 + e32)/4/Q3;
+    }
+    else if (Q3>0.0)
+    {
+        Q0 = (e12 - e21)/4/Q3;
+        Q1 = (e13 + e31)/4/Q3;
+        Q2 = (e23 + e32)/4/Q3;
+    }
+    double mag = sqrt(Q0*Q0 + Q1*Q1 + Q2*Q2 + Q3*Q3);
+    Q0 = Q0/mag;
+    Q1 = Q1/mag;
+    Q2 = Q2/mag;
+    Q3 = Q3/mag;
+
+
+    //Position
+    Xe = 0.0;
+    Ye = 0.0;
+    Ze = 0.0;
+
+}
+
 rigidbody::rigidbody(   double u, double v, double w,
                         double p, double q, double r,
                         double x, double y, double z,

@@ -29,6 +29,7 @@ class rigidbody
         void dxdy(double* output, double* state, double* force, double* moment);
         
     public:
+        rigidbody();
         rigidbody(  double u, double v, double w,
                     double p, double q, double r,
                     double x, double y, double z,

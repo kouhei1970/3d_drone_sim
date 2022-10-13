@@ -1,8 +1,5 @@
 #include <stdio.h>
 #include "quadcopter.hpp"
-#include "rigidbody.hpp"
-#include "motor.hpp"
-#include "propeller.hpp"
 
 void sim(void)
 {

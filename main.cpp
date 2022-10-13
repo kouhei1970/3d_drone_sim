@@ -5,7 +5,7 @@ void sim(void)
 {
     double t = 0.0;
     double T_end = 1.5;
-    double u[4]={11.1, 11.1, 11.1, 11.1};
+    double u[4]={BATTERY_VOLTAGE, BATTERY_VOLTAGE, BATTERY_VOLTAGE, BATTERY_VOLTAGE};
     quadcopter copter;
 
     //Simulation

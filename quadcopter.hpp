@@ -4,6 +4,8 @@
 #include "propeller.hpp"
 #include "rigidbody.hpp"
 
+#define BATTERY_VOLTAGE 11.1
+
 class quadcopter
 {
     private:

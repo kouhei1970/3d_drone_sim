@@ -10,6 +10,8 @@ void sim(void)
     double T_end = 1.5;
     double u[4]={11.1, 11.1, 11.1, 11.1};
     quadcopter copter;
+
+    //Simulation
     while (t< T_end)
     {
         copter.print_body(t);
